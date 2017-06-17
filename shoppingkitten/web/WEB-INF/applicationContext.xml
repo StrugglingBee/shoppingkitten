@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+">
+    <context:component-scan base-package="com.shoppingkitten"></context:component-scan>
+    <mvc:annotation-driven>
+        <!-- 消息转换器 -->
+        <mvc:message-converters>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=utf-8</value>
+                        <value>application/json</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 配置连接池 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/shoppingkitten"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>
+    <!-- 配置会话工厂 -->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:mybatis.xml"></property>
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:com/shoppingkitten/mapper/*.xml</value>
+            </list>
+        </property>
+    </bean>
+    <!-- mybatis的映射文件接口类路径 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.shoppingkitten.dao"></property>
+    </bean>
+
+    <!--配置视图控制器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--开始-->
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <!--结束-->
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!--jdbcRealm-->
+    <bean id="jdbcRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
+        <!--连接池-->
+        <property name="dataSource" ref="dataSource"></property>
+        <!--开启权限验证-->
+        <property name="permissionsLookupEnabled" value="true"></property>
+        <!--登录验证语句-->
+        <property name="authenticationQuery" value="select pwd from users where account=?"></property>
+        <!--角色验证语句-->
+        <property name="userRolesQuery" value="select role_name from user_role left join roles using(rid)
+        left join users using(uid) where user_name=?"></property>
+        <!--权限验证语句-->
+        <property name="permissionsQuery" value="select p_name from role_privilege left join roles using(rid)
+         left join privilege using(pid) where role_name=?"></property>
+    </bean>
+    <!--缓存管理器-->
+    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>
+    <!--securityManager-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="jdbcRealm"></property>
+        <property name="cacheManager" ref="cacheManager"></property>
+    </bean>
+    <!--过滤器-->
+    <bean id="shiro" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"></property>
+        <!--未登录跳转-->
+        <property name="loginUrl" value="/tologin.do"></property>
+        <!--无权限跳转-->
+        <property name="unauthorizedUrl" value="/tonoqx.do"></property>
+        <!--配置保护的资源-->
+        <property name="filterChainDefinitions">
+            <value>
+                /admin/**=authc
+                /**=anon
+            </value>
+        </property>
+
+    </bean>
+    <!--生命周期处理器-->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+
+
+    <!--注解方式权限控制，需要添加的配置-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"></bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <!--无权限直接访问方法捕获的异常处理方法-->
+                <prop key="java.lang.UnauthorizedException">
+                    redirect:tonoqx.do
+                </prop>
+                <prop key="">
+                    redirect:tonoqx.do
+                </prop>
+                <!--所有错误捕获的异常处理方法-->
+                <prop key="java.lang.Exception">
+                    redirect:tologin.do
+                </prop>
+            </props>
+        </property>
+    </bean>
+</beans>
