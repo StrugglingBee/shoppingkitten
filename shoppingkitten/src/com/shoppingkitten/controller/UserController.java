@@ -23,6 +23,7 @@ public class UserController {
         } catch (AuthenticationException e) {
             return "login";
         }
+
         return "success";
     }
 }
