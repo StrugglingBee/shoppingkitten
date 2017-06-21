@@ -29,7 +29,7 @@
     <!-- 配置连接池 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-        <property name="url" value="jdbc:mysql://localhost:3306/shoppingkitten"></property>
+        <property name="url" value="jdbc:mysql://10.8.159.43:3306/shoppingkitten"></property>
         <property name="username" value="root"></property>
         <property name="password" value="root"></property>
     </bean>
