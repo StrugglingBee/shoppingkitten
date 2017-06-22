@@ -88,7 +88,7 @@
         <!--配置保护的资源-->
         <property name="filterChainDefinitions">
             <value>
-                /admin/**=authc
+                <!--/admin/**=authc-->
                 /**=anon
             </value>
         </property>
