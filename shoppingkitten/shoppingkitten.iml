@@ -11,9 +11,6 @@
         </webroots>
       </configuration>
     </facet>
-    <facet type="Spring" name="Spring">
-      <configuration />
-    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -24,6 +21,11 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Spring" level="project" />
     <orderEntry type="library" name="Spring MVC" level="project" />
+    <orderEntry type="library" name="4.3" level="project" />
+    <orderEntry type="library" name="druid-1.0.31" level="project" />
+    <orderEntry type="library" name="fastjson-1.2.32" level="project" />
+    <orderEntry type="library" name="mybatis" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.41-bin" level="project" />
     <orderEntry type="library" name="shiro" level="project" />
     <orderEntry type="library" name="druid-1.0" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.41-bin" level="project" />

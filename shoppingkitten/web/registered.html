@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<script src="js/jquery-1.11.3.js"type="text/javascript"charset="UTF-8"></script>
+		<style type="text/css">
+			
+		</style>
+		<script src="js/gVerify.js"></script>
+	<script>
+		
+		function init(){
+			var verifyCode = new GVerify("code_input2");
+			$("#code_input2").val(verifyCode);
+			
+		}
+		$(init);
+		function login(){
+			
+		}
+		function denglu(){
+			verifyCode=$("#code_input2").val();
+			var res=verifyCode.validate(document.getElementById("my_input").value);
+				if(res){
+					alert("验证正确");
+				}else{
+					alert("验证码错误");
+				}	
+		}
+	</script>
+	</head>
+	<body>
+		<!--
+        	作者：1046723623@qq.com
+        	时间：2017-06-22
+        	描述：整体框架
+        -->
+		<div style="width: 1330px;height: 1010px;">
+			<!--
+            	作者：1046723623@qq.com
+            	时间：2017-06-22
+            	描述：头部
+            -->
+			<div style="width:1330px;height: 100px;box-shadow: 5px 5px 5px gray;">
+				<a href="#">
+					<img src="img/pic1.jpg" style="margin-top: 20px;"/>					
+				</a>
+				<span style="font-size:23px;font-family: '微软雅黑';">欢迎注册</span>
+				<p style="display: inline-block;position:absolute;right:20px;top: 50px;color:#999;">已有账号？
+				<a href="#" style="color:#171717;">请登录</a>
+				</p>
+			</div>
+			<!--
+            	作者：1046723623@qq.com
+            	时间：2017-06-22
+            	描述：主体左侧
+            -->
+			<div style="float:left;width:760px;height: 740px;">
+				<div style="width: 420px;height: 620px;margin-top: 50px;margin-left: 250px;">
+					<form action="#" method="post">
+						<div style="width: 400px;height:56px;border: 1px solid gray;"> 
+							<label for="text"><span>&nbsp;用  户  名</span></label>
+							<input type="text" placeholder="您的账户名和登录名" style="width: 300px;height: 50px;outline: none;border: solid 0;"/>
+						</div>
+					
+					
+					
+						<div style="width: 400px;height:56px;border: 1px solid gray;margin-top: 30px;">
+							<label for="text"><span>&nbsp;设置密码</span></label>
+							<input id="text"type="password" placeholder="建议至少使用两种数字组合" style="width: 300px;height: 50px;outline: none;border: solid 0;"/>
+						</div>
+					
+					
+					
+						<div style="width: 400px;height:56px;border: 1px solid gray;margin-top: 30px;">
+							<label for="text"><span>&nbsp;确认密码</span></label>
+							<input type="password" placeholder="请再次输入密码" style="width:300px;height: 50px;outline: none;border: solid 0;"/>
+						</div>
+					
+					
+					
+						<div style="width: 400px;height:56px;border: 1px solid gray;margin-top: 30px;">
+							<label for="text"><span>&nbsp;中国 0086</span></label>
+							<input type="text" placeholder="建议使用常用手机" style="width: 300px;height: 50px;outline: none;border: 0;"/>
+						</div>
+					
+					
+					<!--
+                    	作者：offline
+                    	时间：2017-06-22
+                    	描述：
+                    -->
+						<div style="width: 400px;height:56px;border: 1px solid gray;margin-top: 30px;">
+							<label for="text"><span>&nbsp;验  证  码</span></label>
+							<input id="my_input" placeholder="请输入验证码" style="width: 180px;height: 50px;outline: none;border: solid 0;"/>
+							<div id="code_input2" style="width: 100px;height: 45px;float: right;padding-top: 3px; margin-right: 3px;"></div> 
+						</div>
+
+					
+					
+						<div style="width: 400px;height:56px;border: 1px solid gray;margin-top: 30px;">
+							<label for="text"><span>&nbsp;手机验证码</span></label>
+							<input type="text" placeholder="请输入手机验证码" style="width: 180px;height: 50px;outline: none;border: solid 0;"/>	
+							<label for="text" style="background-color: #F2F2F2;width:100px;height:50px;"><a href="#">获取验证码</a></label>
+							
+						</div>
+					</form>
+					<!-- zhuceanniu-->
+					<input type="checkbox"checked="checked" style="margin-top: 30px;" />阅读并同意
+					<a href="#" >《星空用户注册协议》 《隐私政策》</a>
+					<p onclick="denglu()" id="my_button" style="width:400px;height:52px;text-align: center;line-height: 52px;background: red;color:#fff;font-size:16px;margin-top:30px;cursor:pointer">立即注册</p>
+				</div>
+									
+			</div>
+			<!--
+            	作者：1046723623@qq.com
+            	时间：2017-06-22
+            	描述：主体右侧
+            -->
+			<div style="float:right;width:550px;height:740px;">
+			<div id="cont2"style="margin-top: 50px;margin-left: 150px;">
+				<span><img src="img/pic5.jpg"/></span>
+				<a id="a1" style="text-decoration: none;" href="#">企业用户注册</a>
+				<hr style="width: 160px;margin-left:0px;"/>
+				<span><img src="img/pic6.jpg"/></span>
+				<a id="a2"style="text-decoration: none;" href="#">INTERNATIONAL<br/>&nbsp;&nbsp;&nbsp;CUSTOMERS</a>
+			</div>	
+			
+			</div>
+			<!--
+            	作者：1046723623@qq.com
+            	时间：2017-06-22
+            	描述：尾部
+            -->
+			<div style="width: 1330px;height:150px;clear: both;">
+				<footer style="width:1280px;height:118px;text-align: center;border-top:1px solid gray;">
+					<ul style="width:830px;height:50px;margin:40px auto 0px;">
+						<li style="float:left;margin:0 10px;font-size:12px;">
+							<a href="#" style="color:#999;">关于我们</a>
+						</li>
+						<li style="float:left;margin:0 10px;font-size:12px;">
+							<a href="#" style="color:#999;">联系我们</a>
+						</li>
+						<li style="float:left;margin:0 10px;font-size:12px;">
+							<a href="#" style="color:#999;">人才招聘</a>
+						</li>
+						<li style="float:left;margin:0 10px;font-size:12px;">
+							<a href="#" style="color:#999;">商检入驻</a>
+						</li>
+						<li style="float:left;margin:0 10px;font-size:12px;">
+							<a href="#" style="color:#999;">广告服务</a>
+						</li>
+					</ul>
+					<p style="color:#999;font-size:12px;">copayright &copy2004-2016 星空JD.com 版权所有</p>
+				</footer>
+				
+			</div>
+		</div>
+				
+	</body>
+</html>
