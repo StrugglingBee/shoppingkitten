@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>登录</title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<style>
+			#header{
+				background-color: #FFFAF0;
+				background-image: url(img/logobig.png) ;
+				background-repeat: no-repeat;
+				background-position:60px 25px;
+			
+			}
+			#center{
+				background-image: url(img/chunjie.png);
+				background-repeat: no-repeat;
+				background-position: 180px 25px;
+			}
+			#sm{
+				padding-top: 10px;
+			}
+			#sm a{
+				font-size: 14px;
+			}
+			#accountlogin a{
+				font-size: 13px;
+			}
+			#picture{
+				text-align: center;
+				
+			}
+			#form{
+				border-radius:5px; ;
+				display: flex ;
+				flex-direction: column;
+			}
+			/*#form li{
+				font-size: 14px;
+				font-family: "宋体";
+			}*/
+			#form li a{
+				font-size: 17px;
+				font-family: "微软雅黑";
+			}
+			#picture p{
+				font-size: 16px;
+				padding-top: 10px;
+				padding-bottom: 0px;
+				margin: 0px;
+			}
+			#form h5{
+				padding-top: 15px;
+			}
+			a {
+				color:darkgray;
+				font-family: "微软雅黑";
+				text-decoration: none;
+			}
+			a:link{
+				text-decoration: none;
+			}
+			a:hover {
+				color:#FF8C69;
+				text-decoration: none;
+			} /* 鼠标划过链接 */
+			a:active {
+				color:#0000FF;
+				text-decoration: none;
+				} /* 已选中的链接 */
+			a:visited {
+				text-decoration: none;
+				} /* 已访问的链接 */
+			#footer ul {
+				display: flex;
+				justify-content: center;
+				list-style: none;
+			}
+			#footer ul li{
+				padding-top: 20px;
+			}
+		</style>
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>
+			function init(){
+				$("#picture").hide();
+			}
+			$(init);
+			function shaoma(){
+				
+				$("#picture").show();
+				$("#accountlogin").hide();
+			}
+			function zhanghao(){
+				$("#picture").hide();
+				$("#accountlogin").show();
+			}
+		</script>
+	</head>
+	<body>
+		<div id="header" style="height: 150px;"></div>
+		<div  id="center" style="height: 450px;">
+			<div  style="height: 380px;width: 100%;padding-top: 10px;">
+				<form  id="form" style="width:22%; background-color: antiquewhite;margin-top: 50px;margin-right: 100px;margin-left: auto;">
+					<ul class="nav nav-tabs" style="height: 46px;">
+  						<li><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="zhanghao()">账号登录</a></h5></li>
+  						<li><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="shaoma()" >扫码登录</a></h5></li>
+  						
+					</ul>
+					<div class="form-group" style="padding: 10px;">
+						<div id="accountlogin">
+							<input style="margin-top:10px ; padding: 10px;" type="text" class="form-control"  placeholder="账号/手机号/用户名">
+    						<input style="margin-top:10px ; padding: 10px;" type="text" class="form-control"  placeholder="请输入密码">
+    						<a href="#">忘记密码</a><br>
+    						<button style="width: 100%;" class="btn btn-group-lg">登录</button>
+						</div>
+    					<div id="picture">
+    						<img src="img/pic3.jpg" />
+    						<p>扫码登录更快更安全</p>
+    						<p><a href="#">通过手机验证登录</a></p>
+    					</div>
+    					<div id="sm">
+    						<img src="img/pic8.jpg"><a href="#">QQ</a>&nbsp;&nbsp;
+    						<img src="img/pic9.jpg"><a href="#">微信</a>&nbsp;&nbsp;
+    						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/pic10.jpg"><a href="#">立即注册</a><br></div>
+    					
+  					</div>
+				</form>
+			</div>
+		</div>
+		<div id="footer" style="  background-color: antiquewhite;">
+			<ul>
+				<li>&nbsp;&nbsp;&nbsp;<a href="#">关于我们</a></li>
+				<li>&nbsp;&nbsp;&nbsp;<a href="#">联系我们</a></li>
+				<li>&nbsp;&nbsp;&nbsp;<a href="#">人才招聘</a></li>
+				<li>&nbsp;&nbsp;&nbsp;<a href="#">商检入驻</a></li>
+				<li>&nbsp;&nbsp;&nbsp;<a href="#">广告服务</a></li>
+			</ul>
+			<p style="color:#999;font-size:13px; text-align: center;padding-bottom: 15px;">copayright &copy2004-2016 京东JD.com 版权所有</p>
+
+		</div>
+	</body>
+</html>
