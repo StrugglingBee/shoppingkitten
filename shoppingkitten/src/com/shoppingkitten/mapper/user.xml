@@ -3,6 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.shoppingkitten.dao.UserDao">
-
+    <!--注册账号-->
+    <insert id="createUser">
+      INSERT INTO user(account,pwd,phone,create_time,create_ip) VALUES(#{account},#{pwd},#{phone},#{create_time},#{create_ip});
+    </insert>
 
   </mapper>
