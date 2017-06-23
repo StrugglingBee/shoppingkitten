@@ -43,9 +43,10 @@ public class UserController {
     @RequestMapping("createUser.do")
     @ResponseBody
     public String createUser(User user, HttpServletRequest req) {
+        System.out.println(user.getAccount());
         String result = "error";
         //判断接收的数据是否为空
-        if (user.getAccount() != ""&&user.getPwd()!=""&&user.getPhone()!="") {
+        if (user.getAccount() != ""&&user.getPwd()!=""&&user.getPhone()!=""&&user.getPwd2()!=""&&user.getPwd().equals(user.getPwd2())) {
             //对接收到用户的密码进行加密
             String pwd= Encryption.encryptionByMD5(user.getPwd());
             user.setPwd(pwd);
@@ -67,5 +68,12 @@ public class UserController {
             }
         }
         return result;
+    }
+
+    //手机验证码方法
+    @RequestMapping("createphonecode.do")
+      @ResponseBody
+    public void createphonecode(){
+
     }
 }

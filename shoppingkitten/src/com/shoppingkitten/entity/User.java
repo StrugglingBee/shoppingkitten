@@ -9,6 +9,7 @@ public class User implements Serializable{
 	private int tid;
 	private String account;
 	private String pwd;
+	private String pwd2;
 	private String email;
 	private String phone;
 	private String create_time;
@@ -18,6 +19,14 @@ public class User implements Serializable{
 	private int member_integral;
 	private int lock_time;
 	private String status;
+
+	public String getPwd2() {
+		return pwd2;
+	}
+
+	public void setPwd2(String pwd2) {
+		this.pwd2 = pwd2;
+	}
 
 	public String getPwd() {
 		return pwd;
