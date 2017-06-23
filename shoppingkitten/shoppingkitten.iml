@@ -25,5 +25,6 @@
     <orderEntry type="library" name="mybatis" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.41-bin" level="project" />
     <orderEntry type="library" name="shiro" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 9.0.0.M9" level="application_server_libraries" />
   </component>
 </module>
