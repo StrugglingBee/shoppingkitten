@@ -4,7 +4,7 @@ package com.shoppingkitten.entity;
 import java.io.Serializable;
 import java.lang.String;
 
-public class Resource implements Serializable{
+public class Resource2 implements Serializable{
 	public int resource_id;
 	public String text;
 	public String url;
@@ -42,11 +42,11 @@ public class Resource implements Serializable{
 		this.parent_id = parent_id;
 	}
 
-	public Resource() {
+	public Resource2() {
 
 	}
 
-	public Resource(int resource_id, String text, String url, int parent_id) {
+	public Resource2(int resource_id, String text, String url, int parent_id) {
 
 		this.resource_id = resource_id;
 		this.text = text;

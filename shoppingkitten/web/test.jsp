@@ -7,31 +7,17 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/easyui.js"></script>
     <script type="text/javascript">
-        function code() {
-            alert("aa");
-            $.get("createCheckCode.do",function (date) {
-                alert(date);
-               if (date){
-                 var a=JSON.parse(date);
-                 $("#code").html(a);
 
-               }
-            });
-        }
     </script>
 </head>
 <body>
     <div>
-        <form action="createUser.do" method="post">
+        <div id="msg"></div>
+        <form action="login.do" method="post">
             账号：<input type="text" name="account"><br>
             密码：<input type="password" name="pwd"><br>
-            电话：<input type="text" name="phone"><br>
-            验证码：<input type="number" name="checkCode">
-            <div id="code"></div>
-            <input type="submit" value="注册">
+            <input type="submit" value="登录">
         </form>
-            <button onclick="code()">产生验证码</button>
-
     </div>
 </body>
 </html>

@@ -17,7 +17,7 @@ import java.util.Random;
 @Controller
 public class UserController {
     @Resource
-    private UserService us;//注入服务资源
+    private UserService us;//注入资源
 
     //产生简单的验证码
     @RequestMapping("createCheckCode.do")
@@ -70,6 +70,47 @@ public class UserController {
         return result;
     }
 
+    //登录
+    @RequestMapping("login.do")
+    @ResponseBody
+    public String login(User u,HttpServletRequest req){
+        String rs="error";
+        if (u!=null&&u.getAccount()!=""&&u.getPwd()!=""){
+            //密码加密处理
+            u.setPwd(Encryption.encryptionByMD5(u.getPwd()));
+            //登录验证
+            User user = us.login(u);
+            if(user!=null){
+                //如果状态正常
+                if(user.getStatus().equals("online")){
+                    //登录次数加一
+                    user.setLogin_count(user.getLogin_count()+1);
+                    user.setLogin_error(0);
+                    //更新登录次数
+                    us.updateLogin(user);
+                    //如果登录成功就把用户信息存入session中
+                    req.getSession().setAttribute("user",user);
+                    rs="success";
+                }
+//                else if (user.getStatus().equals("lock")){//判断账号是否被冻结
+//                    //查询冻结时间
+//                    int lock_time = user.getLock_time();
+//                    rs=lock_time+"";
+//                }else {
+//                    if (user.getLogin_error()<3){//如果登录次数小于3次
+//                        user.setLogin_error(user.getLogin_error()+1);//设置登录错误次数
+//                        us.updateLogin(user);
+//                    }else {//如果错误次数超过3次
+//                        user.setLogin_error(0);
+//                        user.setStatus("lock");
+//                        user.setLock_time(24);
+//                        us.updateStatus(user);
+//                    }
+//                }
+            }
+        }
+        return rs;
+    }
     //手机验证码方法
     @RequestMapping("createphonecode.do")
       @ResponseBody
