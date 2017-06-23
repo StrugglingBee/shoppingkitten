@@ -51,7 +51,7 @@
     <!--配置视图控制器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--开始-->
-        <property name="prefix" value="/"></property>
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
         <!--结束-->
         <property name="suffix" value=".jsp"></property>
     </bean>
@@ -113,7 +113,7 @@
                 </prop>
                 <!--所有错误捕获的异常处理方法-->
                 <prop key="java.lang.Exception">
-
+                    redirect:tologin.do
                 </prop>
             </props>
         </property>
