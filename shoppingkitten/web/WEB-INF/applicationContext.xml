@@ -63,13 +63,13 @@
         <!--开启权限验证-->
         <property name="permissionsLookupEnabled" value="true"></property>
         <!--登录验证语句-->
-        <property name="authenticationQuery" value="select pwd from users where account=?"></property>
+        <property name="authenticationQuery" value="select pwd from manager where account=?"></property>
         <!--角色验证语句-->
-        <property name="userRolesQuery" value="select role_name from user_role left join roles using(rid)
-        left join users using(uid) where user_name=?"></property>
+        <property name="userRolesQuery" value="select name from manager_role left join role using(rid)
+        left join manager using(mid) where account=?"></property>
         <!--权限验证语句-->
-        <property name="permissionsQuery" value="select p_name from role_privilege left join roles using(rid)
-         left join privilege using(pid) where role_name=?"></property>
+        <property name="permissionsQuery" value="select p_name from role_privilege left join role using(rid)
+         left join privilege using(pid) where name=?"></property>
     </bean>
     <!--缓存管理器-->
     <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>
@@ -82,13 +82,14 @@
     <bean id="shiro" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"></property>
         <!--未登录跳转-->
-        <property name="loginUrl" value="/tologin.do"></property>
+        <property name="loginUrl" value="/admin/login.jsp"></property>
         <!--无权限跳转-->
-        <property name="unauthorizedUrl" value="/tonoqx.do"></property>
+        <property name="unauthorizedUrl" value="/noqx.jsp"></property>
         <!--配置保护的资源-->
         <property name="filterChainDefinitions">
             <value>
                 <!--/admin/**=authc-->
+                /admin/main.jsp=authc
                 /**=anon
             </value>
         </property>

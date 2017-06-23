@@ -1,34 +1,112 @@
 <!DOCTYPE html>
 <html>
 	<head>
-
 		<meta charset="UTF-8">
 		<title>注册</title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
 		<script src="js/jquery-1.11.3.js"type="text/javascript"charset="UTF-8"></script>
 		<style type="text/css">
 			
 		</style>
 		<script src="js/gVerify.js"></script>
-	<script>
-		
+	<script type="text/javascript">
+		//初始化验证参数
+		var check1=false;//检查输入数据是否为空
+		var check2=false;//检查验证码是否正确
+		var check3=true;//检查是否同意用户协议
+		var check4=false;//检查两次密码是否一致
+
 		function init(){
+		    //验证码初始化化
 			var verifyCode = new GVerify("code_input2");
 			$("#code_input2").val(verifyCode);
-			
+			//验证码输入框失去焦点后检查
+			$("#my_input").blur(function () {
+                checkCode();
+            });
+			//当密码框失去焦点检查两次密码是否一致
+			$("input[type='password']").blur(function () {
+				checkPwd();
+            });
 		}
 		$(init);
-		function login(){
-			
+		//注册方法
+		function register(){
+		    //获取form表单数据
+			var data=$("#form").serialize();
+			//提交数据
+			$.post("createUser.do",data,function (data) {
+				//转换格式
+			    var y=JSON.parse(data);
+				//判断注册是否成功
+			    if(y=="success"){
+			        //跳转到登录
+				    location.href="login.html";
+				}
+            });
 		}
-		function denglu(){
+		//检查验证码
+		function checkCode(){
+		    //验证码输入数据
 			verifyCode=$("#code_input2").val();
+			//验证验证码
 			var res=verifyCode.validate(document.getElementById("my_input").value);
-				if(res){
-					alert("验证正确");
-				}else{
-					alert("验证码错误");
-				}	
+            if (res) {
+					check2=true;
+					alert("验证码正确");
+            } else {
+                check2=false;
+            }
+					checkAll();
 		}
+        //循环检查输入框是否为空
+        function check() {
+
+            //循环检查输入框
+            var es = $("input[type='text'],input[type='password']");
+            es.blur(function() {
+                $.each(es, function(i, e) {
+                    //检查输入框是否为空
+                    if ($(e).val()) {
+						check1=true;
+                    } else {
+                        check1=false;
+                        return false;
+                    }
+                });
+						checkAll();
+            });
+        }
+        //检查用户是否选中用户相关协议
+        function checkbox() {
+            if($("#checkText").is(":checked")){
+                check3=true;
+			}else {
+                check3=false;
+			}
+                checkAll();
+
+        }
+        //验证两次密码是否一致
+        function checkPwd() {
+		    var pwd=$("input[name='pwd']").val();
+		    var pwd2=$("input[name='pwd2']").val();
+		    if(pwd==pwd2){
+				check4=true;
+			}else {
+		        check4=false;
+			};
+                checkAll();
+        }
+        //检查所有
+        function checkAll() {
+            if(check1&&check2&&check3&&check4){
+                $("#register").removeClass("disabled");
+            }else {
+                $("#register").addClass("disabled");
+            }
+        }
+        $(check);
 	</script>
 	</head>
 	<body>
@@ -59,31 +137,31 @@
             -->
 			<div style="float:left;width:760px;height: 740px;">
 				<div style="width: 420px;height: 620px;margin-top: 50px;margin-left: 250px;">
-					<form action="#" method="post">
+					<form id="form" action="createUser.do" method="post">
 						<div style="width: 400px;height:56px;border: 1px solid gray;"> 
 							<label for="text"><span>&nbsp;用  户  名</span></label>
-							<input type="text" placeholder="您的账户名和登录名" style="width: 300px;height: 50px;outline: none;border: solid 0;"/>
+							<input type="text" name="account" placeholder="您的账户名和登录名" style="width: 300px;height: 50px;outline: none;border: solid 0;"/>
 						</div>
 					
 					
 					
 						<div style="width: 400px;height:56px;border: 1px solid gray;margin-top: 30px;">
 							<label for="text"><span>&nbsp;设置密码</span></label>
-							<input id="text"type="password" placeholder="建议至少使用两种数字组合" style="width: 300px;height: 50px;outline: none;border: solid 0;"/>
+							<input id="text" name="pwd" type="password" placeholder="建议至少使用两种数字组合" style="width: 300px;height: 50px;outline: none;border: solid 0;"/>
 						</div>
 					
 					
 					
 						<div style="width: 400px;height:56px;border: 1px solid gray;margin-top: 30px;">
 							<label for="text"><span>&nbsp;确认密码</span></label>
-							<input type="password" placeholder="请再次输入密码" style="width:300px;height: 50px;outline: none;border: solid 0;"/>
+							<input type="password" name="pwd2" placeholder="请再次输入密码" style="width:300px;height: 50px;outline: none;border: solid 0;"/>
 						</div>
 					
 					
 					
 						<div style="width: 400px;height:56px;border: 1px solid gray;margin-top: 30px;">
 							<label for="text"><span>&nbsp;中国 0086</span></label>
-							<input type="text" placeholder="建议使用常用手机" style="width: 300px;height: 50px;outline: none;border: 0;"/>
+							<input type="text" name="phone" placeholder="建议使用常用手机" style="width: 300px;height: 50px;outline: none;border: 0;"/>
 						</div>
 					
 					
@@ -94,7 +172,7 @@
                     -->
 						<div style="width: 400px;height:56px;border: 1px solid gray;margin-top: 30px;">
 							<label for="text"><span>&nbsp;验  证  码</span></label>
-							<input id="my_input" placeholder="请输入验证码" style="width: 180px;height: 50px;outline: none;border: solid 0;"/>
+							<input id="my_input" placeholder="请输入验证码"  style="width: 180px;height: 50px;outline: none;border: solid 0;"/>
 							<div id="code_input2" style="width: 100px;height: 45px;float: right;padding-top: 3px; margin-right: 3px;"></div> 
 						</div>
 
@@ -108,9 +186,9 @@
 						</div>
 					</form>
 					<!-- zhuceanniu-->
-					<input type="checkbox"checked="checked" style="margin-top: 30px;" />阅读并同意
-					<a href="#" >《星空用户注册协议》 《隐私政策》</a>
-					<p onclick="denglu()" id="my_button" style="width:400px;height:52px;text-align: center;line-height: 52px;background: red;color:#fff;font-size:16px;margin-top:30px;cursor:pointer">立即注册</p>
+					<input onchange="checkbox()" id="checkText" type="checkbox"checked="checked" style="margin-top: 30px;" />阅读并同意
+					<a href="#" >《星空用户注册协议》 《隐私政策》</a><br>
+					<a href="javascript:register()" id="register" class="btn btn-success btn-block disabled">立即注册</a>
 				</div>
 									
 			</div>

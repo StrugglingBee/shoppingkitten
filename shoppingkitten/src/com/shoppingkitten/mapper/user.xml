@@ -3,6 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.shoppingkitten.dao.UserDao">
-
-
+    <!--注册账号-->
+    <insert id="createUser">
+      INSERT INTO user(account,pwd,phone,create_time,create_ip) VALUES(#{account},#{pwd},#{phone},#{create_time},#{create_ip});
+    </insert>
+    <!--登录-->
+    <select id="login" resultType="com.shoppingkitten.entity.User">
+      SELECT * FROM user WHERE account=#{account} AND pwd=#{pwd}
+    </select>
+    <update id="updateLogin">
+      UPDATE user SET login_count=#{login_count},login_error=#{login_error} where account=#{account} AND pwd=#{pwd}
+    </update>
+    <update id="updateStatus">
+      UPDATE user SET login_error=#{login_error},lock_time=#{lock_time},status=#{status} where account=#{account} AND pwd=#{pwd}
+    </update>
   </mapper>
