@@ -13,4 +13,6 @@ public interface UserDao {
     int updateLogin(User user);
     //更新账号状态
     int updateStatus(User user);
+    //根据管理员账号判断拥有的权限
+
 }

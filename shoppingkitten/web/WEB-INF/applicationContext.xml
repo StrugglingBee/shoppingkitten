@@ -89,7 +89,7 @@
         <property name="filterChainDefinitions">
             <value>
                 <!--/admin/**=authc-->
-                /admin/main.jsp=authc
+                <!--/admin/main.jsp=authc-->
                 /**=anon
             </value>
         </property>
