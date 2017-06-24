@@ -2,20 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>登录</title>
+    <title>这是首页</title>
   </head>
   <body>
-  <div style="display: flex;justify-content: center;">
-    <form action="login.do" method="post">
-      <label>账号：</label>
-      <input type="text" name="account">
-      <br/>
-      <label>密码：</label>
-      <input type="password" name="pwd">
-      <br/>
-      <input type="submit" value="登录">
-    </form>
-
-  </div>
+    <a href="login.html">前台登录页面</a><br>
+    <a href="registered.html">前台注册页面</a><br>
+    <a href="/admin/login.jsp">后台登录页面页面</a><br>
+    <a href="test.jsp">我的测试</a>
+    <a href="/admin/main.jsp">去后台工作主页面</a>
   </body>
 </html>

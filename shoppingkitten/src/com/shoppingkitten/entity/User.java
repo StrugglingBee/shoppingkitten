@@ -5,20 +5,47 @@ import java.io.Serializable;
 import java.lang.String;
 
 public class User implements Serializable{
-	public String pwd;
-	public String email;
-	public String phone;
-	public String create_time;
-	public int login_count;
-	public int login_error;
-	public String create_ip;
-	public int mid;
-	public int member_integral;
-	public int id;
-	public String account;
+	private int id;
+	private int tid;
+	private String account;
+	private String pwd;
+	private String pwd2;
+	private String email;
+	private String phone;
+	private String create_time;
+	private int login_count;
+	private int login_error;
+	private String create_ip;
+	private int member_integral;
+	private int lock_time;
+	private String status;
+
+	public String getPwd2() {
+		return pwd2;
+	}
+
+	public void setPwd2(String pwd2) {
+		this.pwd2 = pwd2;
+	}
 
 	public String getPwd() {
 		return pwd;
+	}
+
+	public int getLock_time() {
+		return lock_time;
+	}
+
+	public void setLock_time(int lock_time) {
+		this.lock_time = lock_time;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public void setPwd(String pwd) {
@@ -73,12 +100,12 @@ public class User implements Serializable{
 		this.create_ip = create_ip;
 	}
 
-	public int getMid() {
-		return mid;
+	public int getTid() {
+		return tid;
 	}
 
-	public void setMid(int mid) {
-		this.mid = mid;
+	public void setTid(int tid) {
+		this.tid = tid;
 	}
 
 	public int getMember_integral() {
@@ -109,8 +136,10 @@ public class User implements Serializable{
 
 	}
 
-	public User(String pwd, String email, String phone, String create_time, int login_count, int login_error, String create_ip, int mid, int member_integral, int id, String account) {
-
+	public User(int id, int tid, String account, String pwd, String email, String phone, String create_time, int login_count, int login_error, String create_ip, int member_integral, int lock_time, String status) {
+		this.id = id;
+		this.tid = tid;
+		this.account = account;
 		this.pwd = pwd;
 		this.email = email;
 		this.phone = phone;
@@ -118,9 +147,8 @@ public class User implements Serializable{
 		this.login_count = login_count;
 		this.login_error = login_error;
 		this.create_ip = create_ip;
-		this.mid = mid;
 		this.member_integral = member_integral;
-		this.id = id;
-		this.account = account;
+		this.lock_time = lock_time;
+		this.status = status;
 	}
 }
