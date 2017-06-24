@@ -11,10 +11,13 @@
     <select id="login" resultType="com.shoppingkitten.entity.User">
       SELECT * FROM user WHERE account=#{account} AND pwd=#{pwd}
     </select>
+    <!--更新登录次数-->
     <update id="updateLogin">
       UPDATE user SET login_count=#{login_count},login_error=#{login_error} where account=#{account} AND pwd=#{pwd}
     </update>
+    <!--更新账号状态-->
     <update id="updateStatus">
       UPDATE user SET login_error=#{login_error},lock_time=#{lock_time},status=#{status} where account=#{account} AND pwd=#{pwd}
     </update>
+
   </mapper>
