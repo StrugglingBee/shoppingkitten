@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="manager_grid"></div>
 
+
 <%--分配角色弹窗--%>
 <div id="main_manger_role_alert" class="easyui-window" data-options="closed:true,modal:true">
     <h3 id="main_manger_role_msg">请选择要分配的角色</h3>
     <div id="main_manager_role_grid"></div>
-    <button class="btn btn-success btn-block" onclick="rolesave()">提交</button>
+    <button id="main_manager_role_btn" class="btn btn-success" onclick="rolesave()">提交</button>
 </div>
 <!-- 添加账号弹窗 -->
 <div id="main_manger_alert" class="easyui-window" data-options="closed:true,modal:true">
@@ -39,12 +40,15 @@
 
 
 <script type="text/javascript">
+    var select_roles;
+
     function managerinit() {
         //表格
         $("#manager_grid").datagrid({
             //请求数据，加载数据
             //url:"/manager.do",
             //表格的列
+            pagination:true,//显示分页属性
             columns:[[
                 {field:"mid",title:"",width:100,checkbox:true},//添加选择框
                 {field:"nick_name",title:"昵称",width:100},
@@ -63,33 +67,65 @@
 
         });
         //加载管理员数据
-        loadmanager();
+        loadmanager(1,10);
         //角色表格初始化
         roleinit();
+        //加载所有的角色数据
+//        loadRole();
     }
     //角色表格初始化
     function roleinit() {
         //表格
         $("#main_manager_role_grid").datagrid({
             //请求数据，加载数据
-            //url:"/findAllRole.do",
+//            url:"/findAllRole.do",
             //表格的列
             columns:[[
                 {field:"rid",title:"",width:100,checkbox:true},//添加选择框
                 {field:"name",title:"名称",width:100}
-            ]]
+            ]],
+            onLoadSuccess:function(row){//当表格成功加载时执行
+                var rowData = row.rows;//获取数据
+                $.each(rowData,function(idx,val){//遍历JSON
+                    $.each(select_roles,function(srid,sval) {
+                        if (val.rid == sval.rid) {//判断条件
+                            $("#main_manager_role_grid").datagrid("selectRow", idx);//如果数据行为已选中则选中改行
+                        };
+                    });
+                });
+            }
         });
     }
     //加载角色数据
     function loadRole() {
+
         $.getJSON("/findAllRole.do",function(data){
             $("#main_manager_role_grid").datagrid("loadData",data);
         });
+
     }
-    //异步请求数据，并加载数据
-    function loadmanager(){
-        $.getJSON("/manager.do",function(data){
+    //加载账号数据
+    function loadmanager(p,z){
+//        $.getJSON("/manager.do",function(data){
+//            $("#manager_grid").datagrid("loadData",data);
+//        });
+        //异步获取对象
+        $.getJSON("/manager.do",{page:p,size:z},function(data){
+            alert(data);
+            //把数据加载到表格中
             $("#manager_grid").datagrid("loadData",data);
+            //获取分页器
+            var pager=$("#manager_grid").datagrid("getPager");
+            pager.pagination({
+                total:data.total,//一共显示多少条数据
+                pageNumber:p,//设置当前页码
+                pageSize:z,//设置显示信息条数
+                pageList:[5,10,15],//设置页面尺寸，显示多少条信息
+                //获取分页控制器事件page：当前页码，size:显示数据数量
+                onSelectPage:function(page,size){
+                    loadmanager(page,size);//加载信息
+                }
+            });
         });
     }
     //弹窗输入框初始化
@@ -138,7 +174,6 @@
             }
             //转换成JSON数据
             var a=JSON.stringify(mids);
-            alert(a);
             //异步请求
             $.ajax({
                 url:"/removemanager.do",
@@ -159,13 +194,13 @@
     function powermanager() {
         var a=$("#manager_grid").datagrid("getSelections");//获取选中的数据
         if(a.length==1){
-            loadRole();
+            findRoleByManagerID(a[0].mid);
             $("#main_manger_role_alert").window("open");
         }else{
             $.messager.alert("系统提示","请选择一个用户");
         }
     }
-    //保存或更新
+    //保存或更新管理员
     function managersave() {
         var a=$("#main_manger_form").serialize();//序列化form表单中的数据
         $.get("/saveOrUpdateManager.do",a,function(d){//异步请求
@@ -176,7 +211,36 @@
     }
     //分配角色提交
     function rolesave() {
-        alert("可以");
+        //获取账号
+        var manager=$("#manager_grid").datagrid("getSelected");
+        //获取选择的角色
+        var roles=$("#main_manager_role_grid").datagrid("getSelections");
+        //定义数组
+        var manager_roles=[];
+        //封装
+        for(var i in roles){
+            var manager_role={mid:manager.mid,rid:roles[i].rid}
+            manager_roles[i]=manager_role;
+        }
+        var json=JSON.stringify(manager_roles);
+        alert(json);
+        $.ajax({
+            url:"/insertRoleByManagerID.do",
+            method:"post",
+            data:json,
+            contentType:"application/json",
+            success:function(data){
+                $("#main_manger_role_alert").window("close");
+            }
+        });
+
+    }
+    //根据选择的账号查找拥有的所有角色
+    function findRoleByManagerID(mid) {
+        $.post("/findRoleByManagerID.do",{mid:mid},function (data) {
+            select_roles=JSON.parse(data);
+            loadRole();
+        });
     }
     $(managerinit);
 </script>

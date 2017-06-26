@@ -9,4 +9,6 @@ import java.util.ArrayList;
 public interface RoleDao {
     //查询所有的角色
     ArrayList<Role> findAllRole();
+    //根据账号ID查找拥有的所有角色
+    ArrayList<Role> findRoleByManagerID(int mid);
 }

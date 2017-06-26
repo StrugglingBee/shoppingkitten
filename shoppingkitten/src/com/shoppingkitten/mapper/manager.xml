@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shoppingkitten.dao.ManagerDao">
     <!--查询所有管理员-->
-    <select id="findAllManager" resultType="com.shoppingkitten.entity.Manager">
-        SELECT * from manager
+    <select id="findAllManager" parameterType="map" resultType="com.shoppingkitten.entity.Manager">
+        select * from manager limit #{start},#{max}
     </select>
     <!--添加管理员-->
     <insert id="addManager">
@@ -28,4 +28,17 @@
         LEFT JOIN role USING(rid) LEFT JOIN manager_role USING(rid)
         LEFT JOIN manager USING(mid) where account=#{account} and pwd=#{pwd}
     </select>
+
+    <!--根据账号ID删除拥有的所有角色-->
+    <delete id="delectRoleByManagerID">
+        DELETE FROM manager_role WHERE mid=#{mid}
+    </delete>
+
+    <!--分配角色，批量存入数据-->
+    <insert id="insertRoleByManagerID">
+        INSERT INTO manager_role VALUES
+        <foreach collection="list" item="map" separator=",">
+            (#{map.mid},${map.rid})
+        </foreach>
+    </insert>
 </mapper>

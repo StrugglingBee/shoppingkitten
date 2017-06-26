@@ -16,4 +16,9 @@ public class RoleService {
         return rd.findAllRole();
     };
 
+    //根据账号ID查找拥有的所有角色
+    public ArrayList<Role> findRoleByManagerID(int mid){
+       return rd.findRoleByManagerID(mid);
+    };
+
 }

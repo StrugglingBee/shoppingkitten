@@ -21,4 +21,10 @@ public class RoleController {
         return rs.findAllRole();
     };
 
+    //根据账号ID查找拥有的所有角色
+    @RequestMapping("findRoleByManagerID.do")
+    @ResponseBody
+    public ArrayList<Role> findRoleByManagerID(int mid){
+        return rs.findRoleByManagerID(mid);
+    };
 }

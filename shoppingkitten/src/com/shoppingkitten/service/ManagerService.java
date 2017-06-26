@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Service
 public class ManagerService {
@@ -18,8 +19,8 @@ public class ManagerService {
         return md.findPrivilegeByManager(manager);
     }
     //查询所有管理员
-    public ArrayList<Manager> findAllManager(){
-        return md.findAllManager();
+    public ArrayList<Manager> findAllManager(HashMap<String,Integer> map){
+        return md.findAllManager(map);
     };
     //添加管理员
     public int addManager(Manager manager){
@@ -33,5 +34,15 @@ public class ManagerService {
     //修改管理员
     public int updateManager(Manager manager){
         return md.updateManager(manager);
+    };
+
+    //根据账号ID删除拥有的所有角色
+    public int delectRoleByManagerID(int mid){
+        return md.delectRoleByManagerID(mid);
+    };
+    //分配角色，批量存入数据
+    public int insertRoleByManagerID(ArrayList<HashMap<String, Integer>> list){
+        int rs = md.delectRoleByManagerID(list.get(0).get("mid"));
+        return md.insertRoleByManagerID(list);
     };
 }

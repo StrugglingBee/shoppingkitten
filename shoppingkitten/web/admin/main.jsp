@@ -9,7 +9,7 @@
     <%--主页面的CSS样式--%>
     <link rel="stylesheet" href="/css/main.css"/>
     <%--管理员页面CSS样式--%>
-    <%--<link rel="stylesheet" href="/css/main_manager.css">--%>
+    <link rel="stylesheet" href="/css/main_manager.css">
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/easyui.js"></script>
     <script type="text/javascript">

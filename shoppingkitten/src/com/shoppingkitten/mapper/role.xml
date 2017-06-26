@@ -7,4 +7,8 @@
     <select id="findAllRole" resultType="com.shoppingkitten.entity.Role">
         SELECT * FROM role
     </select>
+    <!--通过账号ID查找拥有的所有角色-->
+    <select id="findRoleByManagerID" parameterType="int" resultType="com.shoppingkitten.entity.Role">
+        SELECT r.* FROM role r LEFT JOIN manager_role mr USING (rid) WHERE mr.mid=#{mid}
+    </select>
 </mapper>
