@@ -5,11 +5,20 @@ import java.io.Serializable;
 import java.lang.String;
 
 public class Manager implements Serializable{
-	public int mid;
-	public String account;
-	public String pwd;
-	public String phone;
-	public String id_code;
+	private int mid;
+	private String account;
+	private String pwd;
+	private String phone;
+	private String id_code;
+	private String nick_name;
+
+	public String getNick_name() {
+		return nick_name;
+	}
+
+	public void setNick_name(String nick_name) {
+		this.nick_name = nick_name;
+	}
 
 	public Manager(int mid, String account, String pwd, String phone, String id_code) {
 		this.mid = mid;

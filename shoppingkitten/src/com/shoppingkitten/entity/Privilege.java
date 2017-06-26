@@ -5,8 +5,17 @@ import java.io.Serializable;
 import java.lang.String;
 
 public class Privilege implements Serializable{
-	public int pid;
-	public String p_name;
+	private int pid;
+	private String p_name;
+	private String role_name;
+
+	public String getRole_name() {
+		return role_name;
+	}
+
+	public void setRole_name(String role_name) {
+		this.role_name = role_name;
+	}
 
 	public int getPid() {
 		return pid;

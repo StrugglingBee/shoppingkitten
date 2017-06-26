@@ -5,8 +5,17 @@ import java.io.Serializable;
 import java.lang.String;
 
 public class Role implements Serializable{
-	public int rid;
-	public String name;
+	private int rid;
+	private String name;
+	private boolean checked;
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 
 	public int getRid() {
 		return rid;

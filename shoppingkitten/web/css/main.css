@@ -16,3 +16,47 @@
 #main_work{
 
 }
+#main-alert{
+    width: 400px;
+    height: 250px;
+    text-align: center;
+}
+#main-alert h3{
+    width: 400px;
+    color: orange;
+    text-align: center;
+    margin: 10px;
+}
+#main-alert div{
+    width: 300px;
+    text-align: center;
+    margin: 20px 50px 20px;
+}
+#main-alert button{
+    width: 300px;
+    margin: 20px auto;
+}
+#manger_role{
+    width: 200px;
+}
+
+
+
+
+#main_manger_alert{
+    width: 400px;
+    height: 300px;
+}
+#main_manger_form div{
+    margin: 10px auto;
+}
+#main_manger_role_alert{
+    width: 200px;
+    height: 300px;
+}
+#main_manger_role_msg{
+    width: 200px;
+    text-align: center;
+    color: orangered;
+    margin: 10px auto;
+}

@@ -1,0 +1,17 @@
+#main_manger_alert{
+    width: 400px;
+    height: 300px;
+}
+#main_manger_form div{
+    margin: 10px auto;
+}
+#main_manger_role_alert{
+    width: 200px;
+    height: 300px;
+}
+#main_manger_role_msg{
+    width: 200px;
+    text-align: center;
+    color: orangered;
+    margin: 10px auto;
+}
