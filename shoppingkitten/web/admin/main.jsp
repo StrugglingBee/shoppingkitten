@@ -80,7 +80,6 @@
     <div id="main_work" class="easyui-tabs" data-options="region:'center'">
 
     </div>
-
 </div>
 
 <!-- 添加弹窗 -->

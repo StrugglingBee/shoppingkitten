@@ -50,7 +50,7 @@ public class ManagerController {
         return rs;
     }
 
-    //查询所有的管理员
+    //分页查询管理员
     @RequestMapping("manager.do")
     @ResponseBody
     public ArrayList<Manager> findAllManager(int page,int size){
@@ -62,8 +62,13 @@ public class ManagerController {
             HashMap<String, Integer> map = new HashMap<>();
             map.put("start",start);
             map.put("max",size);
+            //查询数据条数
+            int total = ms.findAllManager();
             //分页查询
-            managers=ms.findAllManager(map);
+            managers=ms.findManagerByLimit(map);
+            //把总条数给封装进对象
+            managers.get(0).setTotal(total);
+
         }
         return managers;
     };
@@ -105,4 +110,33 @@ public class ManagerController {
         }
         return rs;
     }
+
+    //搜索方法
+    @RequestMapping("searchManager.do")
+    @ResponseBody
+    public ArrayList<Manager> searchManager(String type,String value){
+        ArrayList<Manager> rs=null;
+        if (value!=null&&type!=null){
+            //判断按什么字段查找
+            switch (type){
+                case "account"://按照账号搜索
+                    value="%"+value+"%";
+                    rs=ms.findManagerByAccount(value);
+                    break;
+                case "nick_name"://按照昵称搜索
+                    value="%"+value+"%";
+                    rs=ms.findManagerByNick_name(value);
+                    break;
+                case "phone"://按照电话搜索
+                    value="%"+value+"%";
+                    rs=ms.findManagerByPhone(value);
+                    break;
+                case "id_code"://按照身份证号搜索
+                    value="%"+value+"%";
+                    rs=ms.findManagerById_code(value);
+                    break;
+            }
+        }
+        return rs;
+    };
 }

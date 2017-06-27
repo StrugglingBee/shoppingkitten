@@ -3,9 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shoppingkitten.dao.ManagerDao">
-    <!--查询所有管理员-->
-    <select id="findAllManager" parameterType="map" resultType="com.shoppingkitten.entity.Manager">
+    <!--根据账号搜索-->
+    <select id="findManagerByAccount" parameterType="String" resultType="com.shoppingkitten.entity.Manager">
+        SELECT * FROM  manager WHERE account LIKE #{account}
+    </select>
+    <!--根据昵称搜索-->
+    <select id="findManagerByNick_name" parameterType="String" resultType="com.shoppingkitten.entity.Manager">
+        SELECT * FROM  manager WHERE nick_name LIKE #{nick_name}
+    </select>
+    <!--根据电话搜索-->
+    <select id="findManagerByPhone" parameterType="String" resultType="com.shoppingkitten.entity.Manager">
+        SELECT * FROM  manager WHERE phone LIKE #{phone}
+    </select>
+    <!--根据身份证搜索-->
+    <select id="findManagerById_code" parameterType="String" resultType="com.shoppingkitten.entity.Manager">
+        SELECT * FROM  manager WHERE id_code LIKE #{id_code}
+    </select>
+    <!--分页查询管理员-->
+    <select id="findManagerByLimit" parameterType="map" resultType="com.shoppingkitten.entity.Manager">
         select * from manager limit #{start},#{max}
+    </select>
+    <!--查询所有的数据有多少条-->
+    <select id="findAllManager" resultType="int">
+        select count(mid) from manager
     </select>
     <!--添加管理员-->
     <insert id="addManager">

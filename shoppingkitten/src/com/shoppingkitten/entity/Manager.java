@@ -11,6 +11,15 @@ public class Manager implements Serializable{
 	private String phone;
 	private String id_code;
 	private String nick_name;
+	private int total;
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
 
 	public String getNick_name() {
 		return nick_name;
