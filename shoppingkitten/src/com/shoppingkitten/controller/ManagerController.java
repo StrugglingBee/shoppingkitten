@@ -90,7 +90,7 @@ public class ManagerController {
     //删除管理员
     @RequestMapping("removemanager.do")
     @ResponseBody
-    public int removeUsers(@RequestBody List<Integer> mid){
+    public int removeManagers(@RequestBody List<Integer> mid){
         int rs=0;
         if(mid!=null){
             //转化成ArrayList

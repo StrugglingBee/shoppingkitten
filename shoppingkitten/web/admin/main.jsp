@@ -10,19 +10,25 @@
     <link rel="stylesheet" href="/css/main.css"/>
     <%--管理员页面CSS样式--%>
     <link rel="stylesheet" href="/css/main_manager.css">
+    <%--角色管理页面Css样式--%>
+    <link rel="stylesheet" href="/css/main_role.css">
+    <%--权限管理页面Css样式--%>
+    <link rel="stylesheet" href="/css/main_privilege.css">
+
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/easyui.js"></script>
     <script type="text/javascript">
         //初始化操作。
         function init() {
-            //获取管理员拥有的权限数量
-            var x=${privileges.size()};
-            //如果数量大于1就显示弹窗
-            if(x>1){
-                $("#main-alert").window("open");//让弹窗显示
-            }else if(x==1){
-                loaddata(${privileges.get(0).pid});
-            }
+            <%--//获取管理员拥有的权限数量--%>
+            <%--var x=${privileges.size()};--%>
+            <%--//如果数量大于1就显示弹窗--%>
+            <%--if(x>1){--%>
+                <%--$("#main-alert").window("open");//让弹窗显示--%>
+            <%--}else if(x==1){--%>
+                <%--loaddata(${privileges.get(0).pid});--%>
+            <%--}--%>
+            loaddata(1);
 
         }
 

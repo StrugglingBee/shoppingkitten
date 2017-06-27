@@ -2,20 +2,18 @@
 <div  class="easyui-layout" data-options="fit:true">
     <%--搜索栏--%>
     <div id="main_manager_searchbox" style="height: 80px;padding: 10px;" data-options="region:'north',collapsed:false,title:'检索栏'">
-        <input id="main_manager_search" style="width:300px;" class="easyui-searchbox" data-options="searcher:search,prompt:'请输入搜索关键词',menu:'#main_manager_choice'"></input>
-        <div id="main_manager_choice" style="width:120px;" >
+        <input id="main_manager_search" style="width:300px;" class="easyui-searchbox" data-options="searcher:searchmanager,prompt:'请输入搜索关键词',menu:'#main_manager_choice'"></input>
+        <div id="main_manager_choice" style="width:120px;">
             <div data-options="name:'account',iconCls:'icon-ok'">账号</div>
             <div data-options="name:'nick_name'">昵称</div>
             <div data-options="name:'phone'">电话</div>
             <div data-options="name:'id_code'">身份证号</div>
-
         </div>
     </div>
         <%--数据栏--%>
     <div data-options="region:'center'">
         <div id="manager_grid" data-options="title:'数据栏'"></div>
     </div>
-
 </div>
 
 <%--分配角色弹窗--%>
@@ -90,7 +88,7 @@
                 }
                 },
                 {
-                    text: "分配角色", iconCls: "icon-search", handler: function () {
+                    text: "分配角色", iconCls: "icon-man", handler: function () {
                     powermanager();
                 }
                 }
@@ -100,12 +98,12 @@
         //加载管理员数据
         loadmanager(1, 5);
         //角色表格初始化
-        roleinit();
+        manager_roleinit();
         //加载所有的角色数据
-//        loadRole();
+//        loadmanager_Role();
     }
     //角色表格初始化
-    function roleinit() {
+    function manager_roleinit() {
         //表格
         $("#main_manager_role_grid").datagrid({
             //请求数据，加载数据
@@ -129,7 +127,7 @@
         });
     }
     //加载角色数据
-    function loadRole() {
+    function loadmanager_Role() {
 
         $.getJSON("/findAllRole.do", function (data) {
             $("#main_manager_role_grid").datagrid("loadData", data);
@@ -210,7 +208,7 @@
                 contentType: "application/json",
                 success: function (data) {
                     //重新加载数据
-                    loadmanager();
+                    loadmanager(1,5);
                 }
             });
         } else {
@@ -234,7 +232,7 @@
         $.get("/saveOrUpdateManager.do", a, function (d) {//异步请求
             $("#main_manger_alert").window("close");//关闭弹窗
             //重新加载数据
-            loadmanager();
+            loadmanager(1,5);
         });
     }
     //分配角色提交
@@ -251,7 +249,6 @@
             manager_roles[i] = manager_role;
         }
         var json = JSON.stringify(manager_roles);
-        alert(json);
         $.ajax({
             url: "/insertRoleByManagerID.do",
             method: "post",
@@ -267,11 +264,11 @@
     function findRoleByManagerID(mid) {
         $.post("/findRoleByManagerID.do", {mid: mid}, function (data) {
             select_roles = JSON.parse(data);
-            loadRole();
+            loadmanager_Role();
         });
     }
     //搜索功能
-    function search(value, name) {
+    function searchmanager(value, name) {
         $.getJSON("/searchManager.do",{type:name,value:value},function (data) {
             $("#manager_grid").datagrid("loadData",data);
         });

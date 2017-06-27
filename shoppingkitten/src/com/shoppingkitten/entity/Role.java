@@ -7,14 +7,14 @@ import java.lang.String;
 public class Role implements Serializable{
 	private int rid;
 	private String name;
-	private boolean checked;
+	private int total;
 
-	public boolean isChecked() {
-		return checked;
+	public int getTotal() {
+		return total;
 	}
 
-	public void setChecked(boolean checked) {
-		this.checked = checked;
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
 	public int getRid() {

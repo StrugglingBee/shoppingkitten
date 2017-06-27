@@ -11,4 +11,32 @@
     <select id="findRoleByManagerID" parameterType="int" resultType="com.shoppingkitten.entity.Role">
         SELECT r.* FROM role r LEFT JOIN manager_role mr USING (rid) WHERE mr.mid=#{mid}
     </select>
+
+    <!--分页查询角色-->
+    <select id="findRoleByLimit" parameterType="map" resultType="com.shoppingkitten.entity.Role">
+        select * from role limit #{start},#{max}
+    </select>
+    <!--查询所有的角色数据有多少条-->
+    <select id="findRoleCount" resultType="int">
+        select count(rid) from role
+    </select>
+    <!--添加角色-->
+    <insert id="addRole">
+        INSERT INTO role(name) VALUES(#{name})
+    </insert>
+    <!--更新角色-->
+    <update id="updateRole">
+        UPDATE role set name=#{name} where rid=#{rid}
+    </update>
+    <!--删除角色-->
+    <delete id="deleteRoles" parameterType="int">
+        delete from role where rid in
+        <foreach collection="list" item="rid" open="(" separator="," close=")">
+            #{rid}
+        </foreach>
+    </delete>
+    <!--根据名称搜索-->
+    <select id="findRoleByName" parameterType="String" resultType="com.shoppingkitten.entity.Role">
+        SELECT * FROM  role WHERE name LIKE #{name}
+    </select>
 </mapper>
