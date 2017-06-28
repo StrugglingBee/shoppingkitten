@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.ProductDao">
+    <!--根据商品的类别tid查询该类别的所有商品-->
+<select id="findProduct" resultType="com.shoppingkitten.entity.Product">
+    SELECT * FROM product WHERE tid=#{tid}
+</select>
+    <!--添加商品-->
+    <insert id="addProduct" parameterType="com.shoppingkitten.entity.Product">
+  INSERT INTO  product(tid,name,sale_price,price,stock,face_image,descripe) VALUES(#{tid},#{name},#{sale_price},#{price},#{stock},#{face_image},#{descripe})
+    </insert>
+    <!--根据商品id查找商品信息-->
+    <select id="findSingleProduct" resultType="com.shoppingkitten.entity.Product">
+         SELECT * FROM product WHERE id=#{id}
+    </select>
+    <!--根据商品id删除商品信息-->
+    <delete id="deleteproduct" >
+        DELETE FROM  product WHERE id=#{id}
+    </delete>
+</mapper>

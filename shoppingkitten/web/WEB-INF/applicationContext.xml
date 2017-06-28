@@ -107,7 +107,7 @@
             <props>
                 <!--无权限直接访问方法捕获的异常处理方法-->
                 <prop key="java.lang.UnauthorizedException">
-                    redirect:tonoqx.do
+                    <!--redirect:tonoqx.do-->
                 </prop>
                 <prop key="">
                     redirect:tonoqx.do
