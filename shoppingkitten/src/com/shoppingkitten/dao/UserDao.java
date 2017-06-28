@@ -21,6 +21,11 @@ import java.util.HashMap;
 
     //分页查询
     ArrayList<User> findUserByPage(HashMap<String, Integer> map);
+
+
+    //根据账号查询用户
+    ArrayList<User> searchUserByAccount(String account);
+
     //查询数据条数
     int findUserCounts();
     //保存页面新建的用户

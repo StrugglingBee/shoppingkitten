@@ -33,8 +33,11 @@ public class UserService {
 
     //分页查询
     public ArrayList<User> findUserByPage(HashMap<String, Integer> map){
-
         return  ud.findUserByPage(map);
+    }
+    //根据账号查询用户
+    public ArrayList<User> searchUserByAccount(String account){
+        return ud.searchUserByAccount(account);
     }
     //查询所有数据条数
     public int findUserCounts(){

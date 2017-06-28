@@ -4,6 +4,7 @@ import com.shoppingkitten.entity.User;
 import com.shoppingkitten.service.UserService;
 import com.shoppingkitten.utils.Encryption;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -142,8 +143,6 @@ public class UserController {
             return data;
 
         }
-
-
         return data;
     }
 
@@ -168,6 +167,13 @@ public class UserController {
         us.removeUser(user);
         System.out.println(user.toString());
         return 1;
+    }
+    @RequestMapping("searchUserByAccount.do")
+    @ResponseBody
+    public ArrayList<User> searchUserByAccount(@RequestBody String account){
+        account=account.replace("=","");
+        System.out.println(account);
+        return us.searchUserByAccount(account);
     }
  }
 

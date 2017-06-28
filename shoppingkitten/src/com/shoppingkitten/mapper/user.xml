@@ -25,6 +25,11 @@
   SELECT *
   FROM user limit #{start},#{end}
 </select>
+
+  <!--根据账号查询用户-->
+  <select id="searchUserByAccount" resultType="com.shoppingkitten.entity.User">
+    SELECT * FROM user WHERE account=#{account}
+  </select>
   <!--查询用户总数-->
   <select id="findUserCounts" resultType="int">
      select count(id) from user

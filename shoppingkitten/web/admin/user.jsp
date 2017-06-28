@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+
+
     <script>
         function user_init(){
 
@@ -35,8 +39,8 @@
             findUserByPage(1,5);
 
         }
+//
         $(user_init);
-
 
         function findUserByPage(p,z) {
             $.get("/findUserByPage.do", {page: p, size: z}, function (data) {
@@ -65,17 +69,6 @@
 
         }
 
-
-//        function findalluser() {
-//            $.get("/findalluser.do",function (data) {
-////                alert(data);
-//                var d= $.parseJSON( data ); //jQuery.parseJSON(jsonstr)
-////                $("#user_datagrid").datagrid("loadData",d);
-//
-//            });
-//        }
-
-
         //shanchu
         function removeuser(){
             var list= $("#user_datagrid").datagrid("getSelected");
@@ -98,16 +91,34 @@
                 //隐藏
                 $("#id").val(s.id);
                 $("#user_window").window('open');
+            }else {
+                window.alert("妈的智障，请您选择一条数据！")
             }
-          window.alert("妈的智障，请您选择一条数据！")
         }
+
+        //开始查询弹出查询框
         function searchuser(){
-            $("#user_window").window('open');
+            $("#user_search").window('open');
         }
+
+        //根据账号查询用户
+        function searchUserByAccount(){
+           var user_account= $("#user_search_account").val();
+           alert(user_account);
+           console.log(user_account);
+           $.post("/searchUserByAccount.do",user_account,function (data) {
+               var d = $.parseJSON(data); //jQuery.parseJSON(jsonstr)
+               $("#user_datagrid").datagrid("loadData", d);
+               $("#user_search").window('close');
+           });
+        }
+
+        //添加用户
         function adduser() {
             $("#user_window").window('open');
             $("#id").val(0);
         }
+        //保存用户
         function saveUser(){
             var a=$("#user_window_form").serialize();
 //            var id=$("#id").val();
@@ -120,25 +131,33 @@
     </script>
 
 
-
+<%--表格--%>
 <div id="user_datagrid"></div>
-<div id="madezhizhang" style="height: 100px"></div>
+<%--搜索框--%>
+<div id="user_search" class="easyui-window" style="width: 300px ;padding:10px;" data-options="modal:true,closed:true">
+
+    <input id="user_search_account" type="text" name="user_account"style="width:100%;height:30px ;padding-left:5px"/>
+    <a href="javascript:searchUserByAccount()" class="easyui-linkbutton" >保存</a> <a href="#" class="easyui-linkbutton" >取消</a>
+
+</div>
+<%--添加用户的弹窗--%>
 <div id="user_window" class="easyui-window " style="width: 300px ;padding:10px;" data-options="modal:true,closed:true" title="用户信息管理">
     <form id="user_window_form" method="post">
            <input id="id"type="text" name="id" style="display: none">
 
            账号：<input id="account" type="text" name="account" style="width:100%;height:30px;padding-left:5px"/>
             <br>
-           密码： <input id="pwd" type="text" name="pwd" style="width:100%;height:30px";padding-left:5px />
+           密码： <input id="pwd" type="text" name="pwd" style="width:100%;height:30px ;padding-left:5px" />
              <br>
-          邮箱：  <input id="email" type="text" name="email" style="width:100%;height:30px"; padding-left:5px/>
+          邮箱：  <input id="email" type="text" name="email" style="width:100%;height:30px ; padding-left:5px"/>
             <br>
-           电话： <input id="phone" type="text" name="phone" style="width:100%;height:30px";padding-left:5px/>
+           电话： <input id="phone" type="text" name="phone" style="width:100%;height:30px;padding-left:5px"/>
             <br>
             <a href="javascript:saveUser()" class="easyui-linkbutton" >保存</a> <a href="#" class="easyui-linkbutton" >取消</a>
     </form>
     <%--<div id="id" style="display: none;"></div>--%>
 </div>
+
 
 
 
