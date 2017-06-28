@@ -100,23 +100,23 @@
 
 
     <!--注解方式权限控制，需要添加的配置-->
-    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"></bean>
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="exceptionMappings">
-            <props>
-                <!--无权限直接访问方法捕获的异常处理方法-->
-                <prop key="java.lang.UnauthorizedException">
-                    redirect:tonoqx.do
-                </prop>
-                <prop key="">
-                    redirect:tonoqx.do
-                </prop>
-                <!--所有错误捕获的异常处理方法-->
-                <prop key="java.lang.Exception">
-                    redirect:tologin.do
-                </prop>
-            </props>
-        </property>
-    </bean>
+    <!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"></bean>-->
+    <!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>-->
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+        <!--<property name="exceptionMappings">-->
+            <!--<props>-->
+                <!--&lt;!&ndash;无权限直接访问方法捕获的异常处理方法&ndash;&gt;-->
+                <!--<prop key="java.lang.UnauthorizedException">-->
+                    <!--redirect:tonoqx.do-->
+                <!--</prop>-->
+                <!--<prop key="">-->
+                    <!--redirect:tonoqx.do-->
+                <!--</prop>-->
+                <!--&lt;!&ndash;所有错误捕获的异常处理方法&ndash;&gt;-->
+                <!--<prop key="java.lang.Exception">-->
+                    <!--redirect:tologin.do-->
+                <!--</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
 </beans>
