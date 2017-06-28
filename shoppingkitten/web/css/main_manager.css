@@ -1,0 +1,21 @@
+#main_manger_alert{
+    width: 400px;
+    height: 300px;
+}
+#main_manger_form div{
+    margin: 10px auto;
+}
+#main_manger_role_alert{
+    width: 300px;
+    height: 300px;
+}
+#main_manger_role_msg{
+    width: 300px;
+    text-align: center;
+    color: orangered;
+    margin: 10px auto;
+}
+#main_manager_role_btn{
+    width: 200px;
+    margin: 10px auto;
+}

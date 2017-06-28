@@ -5,8 +5,17 @@ import java.io.Serializable;
 import java.lang.String;
 
 public class Role implements Serializable{
-	public int rid;
-	public String name;
+	private int rid;
+	private String name;
+	private int total;
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
 
 	public int getRid() {
 		return rid;

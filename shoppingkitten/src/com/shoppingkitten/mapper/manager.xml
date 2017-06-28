@@ -3,10 +3,62 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shoppingkitten.dao.ManagerDao">
+    <!--根据账号搜索-->
+    <select id="findManagerByAccount" parameterType="String" resultType="com.shoppingkitten.entity.Manager">
+        SELECT * FROM  manager WHERE account LIKE #{account}
+    </select>
+    <!--根据昵称搜索-->
+    <select id="findManagerByNick_name" parameterType="String" resultType="com.shoppingkitten.entity.Manager">
+        SELECT * FROM  manager WHERE nick_name LIKE #{nick_name}
+    </select>
+    <!--根据电话搜索-->
+    <select id="findManagerByPhone" parameterType="String" resultType="com.shoppingkitten.entity.Manager">
+        SELECT * FROM  manager WHERE phone LIKE #{phone}
+    </select>
+    <!--根据身份证搜索-->
+    <select id="findManagerById_code" parameterType="String" resultType="com.shoppingkitten.entity.Manager">
+        SELECT * FROM  manager WHERE id_code LIKE #{id_code}
+    </select>
+    <!--分页查询管理员-->
+    <select id="findManagerByLimit" parameterType="map" resultType="com.shoppingkitten.entity.Manager">
+        select * from manager limit #{start},#{max}
+    </select>
+    <!--查询所有的数据有多少条-->
+    <select id="findAllManager" resultType="int">
+        select count(mid) from manager
+    </select>
+    <!--添加管理员-->
+    <insert id="addManager">
+        INSERT INTO manager(account,pwd,phone,id_code,nick_name) VALUES(#{account},#{pwd},#{phone},#{id_code},#{nick_name})
+    </insert>
+    <!--删除管理员-->
+    <delete id="deleteManagers" parameterType="int">
+        delete from manager where mid in
+        <foreach collection="list" item="mid" open="(" separator="," close=")">
+            #{mid}
+        </foreach>
+    </delete>
+    <!--更新管理员信息-->
+    <update id="updateManager">
+        UPDATE manager set account=#{account},pwd=#{pwd},phone=#{phone},id_code=#{id_code},nick_name=#{nick_name} where mid=#{mid}
+    </update>
     <!--根据管理员查找权限-->
     <select id="findPrivilegeByManager" resultType="com.shoppingkitten.entity.Privilege">
         SELECT p.* FROM privilege p LEFT JOIN role_privilege USING(pid)
         LEFT JOIN role USING(rid) LEFT JOIN manager_role USING(rid)
         LEFT JOIN manager USING(mid) where account=#{account} and pwd=#{pwd}
     </select>
+
+    <!--根据账号ID删除拥有的所有角色-->
+    <delete id="delectRoleByManagerID">
+        DELETE FROM manager_role WHERE mid=#{mid}
+    </delete>
+
+    <!--分配角色，批量存入数据-->
+    <insert id="insertRoleByManagerID">
+        INSERT INTO manager_role VALUES
+        <foreach collection="list" item="map" separator=",">
+            (#{map.mid},${map.rid})
+        </foreach>
+    </insert>
 </mapper>

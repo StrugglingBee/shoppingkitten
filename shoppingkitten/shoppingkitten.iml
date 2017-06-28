@@ -19,14 +19,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="spring_springmvc" level="project" />
-    <orderEntry type="library" name="druid" level="project" />
-    <orderEntry type="library" name="fastjson" level="project" />
-    <orderEntry type="library" name="mybatis" level="project" />
-    <orderEntry type="library" name="mysql-connector" level="project" />
+    <orderEntry type="library" name="fastjson-1.2.32" level="project" />
     <orderEntry type="library" name="shiro" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0.5" level="application_server_libraries" />
-    <orderEntry type="library" name="jstl" level="project" />
-    <orderEntry type="library" name="commons" level="project" />
+    <orderEntry type="library" name="mybatis" level="project" />
+    <orderEntry type="library" name="4.3" level="project" />
+    <orderEntry type="library" name="druid-1.0.31" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0.43" level="application_server_libraries" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
