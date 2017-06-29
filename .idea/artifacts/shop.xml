@@ -1,0 +1,23 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="shop">
+    <output-path>$PROJECT_DIR$/out/artifacts/shop</output-path>
+    <root id="archive" name="shop.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="druid" />
+          <element id="library" level="project" name="fastjson" />
+          <element id="library" level="project" name="mybatis" />
+          <element id="library" level="project" name="shiro" />
+          <element id="library" level="project" name="mysql-connector" />
+          <element id="library" level="project" name="spring_springmvc" />
+          <element id="library" level="project" name="jstl" />
+          <element id="library" level="project" name="commons-dbcp2-2.1.1" />
+        </element>
+        <element id="directory" name="classes">
+          <element id="module-output" name="shoppingkitten" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="shoppingkitten/web/Web" />
+    </root>
+  </artifact>
+</component>

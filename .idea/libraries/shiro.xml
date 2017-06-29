@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="shiro">
+    <CLASSES>
+      <root url="jar://D:/libxm/libs/shiro/commons-beanutils-1.9.3.jar!/" />
+      <root url="jar://D:/libxm/libs/shiro/commons-logging-1.2.jar!/" />
+      <root url="jar://D:/libxm/libs/shiro/log4j-1.2.17.jar!/" />
+      <root url="jar://D:/libxm/libs/shiro/shiro-all-1.3.2.jar!/" />
+      <root url="jar://D:/libxm/libs/shiro/slf4j-api-1.7.24.jar!/" />
+      <root url="jar://D:/libxm/libs/shiro/slf4j-log4j12-1.7.24.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
