@@ -56,12 +56,12 @@ public class ManagerController {
     public ArrayList<Manager> findAllManager(int page,int size){
         ArrayList<Manager> managers=null;
         if (page>0&&size>0){
-            int start=(page-1)*size;
-            int max=size;
-            //封装成map
-            HashMap<String, Integer> map = new HashMap<>();
-            map.put("start",start);
-            map.put("max",size);
+                int start=(page-1)*size;
+                int max=size;
+                //封装成map
+                HashMap<String, Integer> map = new HashMap<>();
+                map.put("start",start);
+                map.put("max",size);
             //查询数据条数
             int total = ms.findAllManager();
             //分页查询

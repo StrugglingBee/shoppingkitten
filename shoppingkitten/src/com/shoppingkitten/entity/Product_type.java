@@ -2,21 +2,21 @@ package com.shoppingkitten.entity;
 
 
 import java.io.Serializable;
-import java.lang.String;
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class Product_type implements Serializable{
-	public int id;
-	public String type_name;
-	public int Pid;
-
+	private int id ;
+	private String text;
+	private int pid;
+	private Set<Product_type> children=new HashSet<>();
 	public Product_type() {
 	}
-
-	public Product_type(int id, String type_name, int pid) {
-
+	public Product_type(int id, String text, int pid) {
 		this.id = id;
-		this.type_name = type_name;
-		Pid = pid;
+		this.text = text;
+		this.pid = pid;
 	}
 
 	public int getId() {
@@ -27,19 +27,27 @@ public class Product_type implements Serializable{
 		this.id = id;
 	}
 
-	public String getType_name() {
-		return type_name;
+	public String getText() {
+		return text;
 	}
 
-	public void setType_name(String type_name) {
-		this.type_name = type_name;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public int getPid() {
-		return Pid;
+		return pid;
 	}
 
 	public void setPid(int pid) {
-		Pid = pid;
+		this.pid = pid;
+	}
+
+	public Set<Product_type> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set<Product_type> children) {
+		this.children = children;
 	}
 }

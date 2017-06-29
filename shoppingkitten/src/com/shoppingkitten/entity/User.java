@@ -19,6 +19,16 @@ public class User implements Serializable{
 	private int member_integral;
 	private int lock_time;
 	private String status;
+	//用户总数
+	private int counts;
+
+	public int getCounts() {
+		return counts;
+	}
+
+	public void setCounts(int counts) {
+		this.counts = counts;
+	}
 
 	public String getPwd2() {
 		return pwd2;
@@ -150,5 +160,25 @@ public class User implements Serializable{
 		this.member_integral = member_integral;
 		this.lock_time = lock_time;
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", tid=" + tid +
+				", account='" + account + '\'' +
+				", pwd='" + pwd + '\'' +
+				", pwd2='" + pwd2 + '\'' +
+				", email='" + email + '\'' +
+				", phone='" + phone + '\'' +
+				", create_time='" + create_time + '\'' +
+				", login_count=" + login_count +
+				", login_error=" + login_error +
+				", create_ip='" + create_ip + '\'' +
+				", member_integral=" + member_integral +
+				", lock_time=" + lock_time +
+				", status='" + status + '\'' +
+				'}';
 	}
 }

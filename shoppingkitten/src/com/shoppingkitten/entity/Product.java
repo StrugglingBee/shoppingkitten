@@ -5,16 +5,16 @@ import java.io.Serializable;
 import java.lang.String;
 
 public class Product implements Serializable{
-	public int id;
-	public String name;
-	public float sale_price;
-	public int stock;
-	public int sale_total;
-	public int tid;
-	public float price;
-	public String face_image;
-	public String descripe;
-	public String create_time;
+	private int id;
+	private String name;
+	private float sale_price;
+	private int stock;
+	private int sale_total;
+	private int tid;
+	private float price;
+	private String face_image;
+	private String descripe;
+	private String create_time;
 
 	public Product(int id, String name, float sale_price, int stock, int sale_total, int tid, float price, String face_image, String descripe, String create_time) {
 		this.id = id;
@@ -27,6 +27,9 @@ public class Product implements Serializable{
 		this.face_image = face_image;
 		this.descripe = descripe;
 		this.create_time = create_time;
+	}
+
+	public Product() {
 	}
 
 	public int getId() {
@@ -107,9 +110,5 @@ public class Product implements Serializable{
 
 	public void setCreate_time(String create_time) {
 		this.create_time = create_time;
-	}
-
-	public Product() {
-
 	}
 }
