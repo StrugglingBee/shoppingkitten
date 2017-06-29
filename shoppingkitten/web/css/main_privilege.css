@@ -5,3 +5,18 @@
 #main_privilege_form div{
     margin: 10px auto;
 }
+#main_role_privilege_alert{
+     width: 400px;
+     height: 300px;
+ }
+#main_role_privilege_msg{
+    width: 400px;
+    text-align: center;
+    color: orangered;
+    margin: 10px auto;
+}
+#main_role_privilege_btn{
+    width: 200px;
+    margin: 20px;
+}
+

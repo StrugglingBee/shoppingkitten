@@ -39,4 +39,31 @@
     <select id="findRoleByName" parameterType="String" resultType="com.shoppingkitten.entity.Role">
         SELECT * FROM  role WHERE name LIKE #{name}
     </select>
+
+
+    <!--根据角色ID删除拥有的权限-->
+    <delete id="delectPrivilegeByRoleID">
+        DELETE FROM role_privilege WHERE rid=#{rid}
+    </delete>
+
+    <!--分配权限，批量存入角色_权限对应数据-->
+    <insert id="insertPrivilegeByRoleID">
+        INSERT INTO role_privilege VALUES
+        <foreach collection="list" item="map" separator=",">
+            (#{map.rid},${map.pid})
+        </foreach>
+    </insert>
+
+    <!--根据角色ID删除拥有的资源-->
+    <delete id="delectResourceByRoleID">
+        DELETE FROM role_resource WHERE rid=#{rid}
+    </delete>
+
+    <!--分配权限，批量存入角色_权限对应数据-->
+    <insert id="insertResourceByRoleID">
+        INSERT INTO role_resource VALUES
+        <foreach collection="list" item="map" separator=",">
+            (#{map.rid},${map.resource_id})
+        </foreach>
+    </insert>
 </mapper>

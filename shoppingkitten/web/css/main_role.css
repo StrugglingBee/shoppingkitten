@@ -1,3 +1,4 @@
+/*角色添加弹窗样式*/
 #main_role_alert{
     width: 400px;
     height: 300px;
@@ -5,3 +6,34 @@
 #main_role_form div{
     margin: 10px auto;
 }
+/*分配权限弹窗样式*/
+#main_role_privilege_alert{
+    width: 300px;
+    height: 300px;
+}
+#main_role_privilege_msg{
+    width: 300px;
+    text-align: center;
+    color: orangered;
+    margin: 10px auto;
+}
+#main_role_privilege_btn{
+    width: 200px;
+    margin: 10px auto;
+}
+
+/*分配资源弹窗样式*/
+/*#main_role_resource_alert{*/
+    /*width: 500px;*/
+    /*height: 500px;*/
+/*}*/
+/*#main_role_resource_msg{*/
+    /*width: 300px;*/
+    /*text-align: center;*/
+    /*color: orangered;*/
+    /*margin: 10px auto;*/
+/*}*/
+/*#main_role_resource_btn{*/
+    /*width: 200px;*/
+    /*margin: 10px auto;*/
+/*}*/

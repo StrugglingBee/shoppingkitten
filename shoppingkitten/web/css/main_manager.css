@@ -5,6 +5,7 @@
 #main_manger_form div{
     margin: 10px auto;
 }
+/*分配角色弹窗样式*/
 #main_manger_role_alert{
     width: 300px;
     height: 300px;

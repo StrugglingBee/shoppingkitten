@@ -13,6 +13,32 @@
     </div>
 </div>
 
+
+<%--分配权限弹窗--%>
+<div id="main_role_privilege_alert" class="easyui-window" data-options="closed:true,modal:true">
+    <h3 id="main_role_privilege_msg">请选择要分配的权限</h3>
+    <div id="main_role_privilege_grid"></div>
+    <button id="main_role_privilege_btn" class="btn btn-success" onclick="privilegesave()">提交</button>
+</div>
+
+<%--分配资源弹窗--%>
+<div id="main_role_resource_alert" style="width: 300px;height: 500px;" class="easyui-window" data-options="closed:true,modal:true">
+    <h3 id="main_role_resource_msg" style="width: 250px;text-align: center;color: orangered;margin: 10px auto;">请选择要分配的资源</h3>
+    <div id="main_role_resource_grid"></div>
+    <div style="display:flex;justify-content:center;margin-top: 10px;">
+        <a class="easyui-linkbutton" href="javascript:resourcesave()" style="display: inline-block; width: 200px;height: 35px;">保 存</a>
+    </div>
+</div>
+
+
+<%--分配资源弹窗（只显示一个树，放弃）--%>
+<%--<div id="main_role_resource_alert" class="easyui-window" data-options="closed:true,modal:true" style="width: 300px;height: 400px;">--%>
+    <%--<ul id="main_role_resource_tree" class="easyui-tree" style="margin-bottom: 30px;"></ul>--%>
+    <%--<div style="display:flex;justify-content:center">--%>
+        <%--<a class="easyui-linkbutton" href="javascript:resourcesave()" style="display: inline-block; width: 200px;height: 35px;">保 存</a>--%>
+    <%--</div>--%>
+<%--</div>--%>
+
 <!-- 添加角色弹窗 -->
 <div id="main_role_alert" class="easyui-window" data-options="closed:true,modal:true">
     <form id="main_role_form" class="form-group" style="margin: 10px;">
@@ -27,6 +53,8 @@
 </div>
 
 <script type="text/javascript">
+    var select_privileges;
+
     function roleinit() {
         //表格
         $("#role_grid").datagrid({
@@ -57,7 +85,7 @@
                 },
                 {
                     text: "分配权限", iconCls: "icon-man", handler: function () {
-                    powerrole();
+                    powerprivilege();
                 }
                 },
                 {
@@ -68,7 +96,11 @@
             ]
 
         });
+        //加载角色数据
         loadrole(1,5);
+        //分配权限表格初始化
+        role_privilegeinit();
+        role_resourceinit();
     }
     //加载账号数据
     function loadrole(p, z) {
@@ -147,11 +179,180 @@
             $.messager.alert("系统提示", "请至少选择一条数据！");
         }
     }
-    function powerrole() {
-        alert("分配权限");
+    //分配权限
+    function powerprivilege() {
+        var a = $("#role_grid").datagrid("getSelections");//获取选中的数据
+        if (a.length == 1) {
+            //通过角色ID查找拥有的权限
+            findPrivilegeByRoleID(a[0].rid);
+            $("#main_role_privilege_alert").window("open");
+        } else {
+            $.messager.alert("系统提示", "请选择一个角色");
+        }
+    }
+    //根据选择的角色查找拥有的所有权限
+    function findPrivilegeByRoleID(rid) {
+        $.post("/findPrivilegeByRoleID.do", {rid: rid}, function (data) {
+            select_privileges = JSON.parse(data);
+            loadRole_privilege();
+        });
+    }
+    //权限表格初始化
+    function role_privilegeinit() {
+        //表格
+        $("#main_role_privilege_grid").datagrid({
+            //请求数据，加载数据
+//            url:"/findAllRole.do",
+            //表格的列
+            columns: [[
+                {field: "pid", title: "", width: 100, checkbox: true},//添加选择框
+                {field: "p_name", title: "名称", width: 100},
+                {field: "p_remark", title: "说明", width: 300}
+            ]],
+            onLoadSuccess: function (row) {//当表格成功加载时执行
+                var rowData = row.rows;//获取数据
+                $.each(rowData, function (idx, val) {//遍历JSON
+                    $.each(select_privileges, function (sidx, sval) {
+                        if (val.pid == sval.pid) {//判断条件
+                            $("#main_role_privilege_grid").datagrid("selectRow", idx);//如果数据行为已选中则选中改行
+                        }
+                        ;
+                    });
+                });
+            }
+        });
+    }
+    //加载权限数据
+    function loadRole_privilege() {
+        $.getJSON("/findAllPrivilege.do", function (data) {
+            $("#main_role_privilege_grid").datagrid("loadData", data);
+        });
+    }
+    //分配权限保存
+    function privilegesave() {
+        //获取角色
+        var role = $("#role_grid").datagrid("getSelected");
+        //获取选择的权限
+        var privileges = $("#main_role_privilege_grid").datagrid("getSelections");
+        //定义数组
+        var role_privileges = [];
+        //判断是否有选择
+        if (privileges.length>0){
+            //封装
+            for (var i in privileges) {
+                var role_privilege = {rid: role.rid, pid: privileges[i].pid}
+                role_privileges[i] = role_privilege;
+            }
+        }else {
+            var role_privilege = {rid: role.rid, pid: 0}
+            role_privileges[0] = role_privilege;
+        }
+
+        var json = JSON.stringify(role_privileges);
+        $.ajax({
+            url: "/insertPrivilegeByRoleID.do",
+            method: "post",
+            data: json,
+            contentType: "application/json",
+            success: function (data) {
+                $("#main_role_privilege_alert").window("close");
+                $.messager.alert("系统提示", "分配权限成功！");
+            }
+        });
     }
     function powerresource() {
-        alert("分配资源");
+        var a = $("#role_grid").datagrid("getSelections");//获取选中的数据
+        if (a.length == 1) {
+            //请求数据并加载
+            loadrole_resource(a[0].rid);
+//            只显示一棵树
+//            $("#main_role_resource_tree").tree({
+//                url:"/findResourceByRoleID.do?rid="+a[0].rid,
+//                checkbox:true,
+//                cascadeCheck:false
+//            });
+//            $("#main_role_resource_alert").window("open");
+        } else {
+            $.messager.alert("系统提示", "请选择一个角色");
+        }
+    }
+    //资源弹窗初始化
+    function role_resourceinit() {
+        //初始化
+        $("#main_role_resource_grid").treegrid({
+            title:"资源信息",
+//            url:"/findResourceByRoleID.do?rid=1",//请求资源
+            idField:"resource_id",
+            treeField:"text",
+            rownumbers:false,//行号
+            singleSelect:false,//多选,设置成true为多选
+            columns:[[
+                {field:"resource_id",title:"",width:100,checkbox:true},
+                {field:"text",title:"资源名称",width:200}
+            ]],
+            onLoadSuccess:function (rows,data) {//数据加载成功触发
+                $.each(data,function (idex,val) {//循环遍历根节点
+                    //判断是否拥有该节点资源
+                    if(val.biaoji==1){
+                        $("#main_role_resource_grid").treegrid("select", val.resource_id);//选中
+                    }else {
+                        $("#main_role_resource_grid").treegrid("unselect", val.resource_id);//取消选中
+                    }
+                    var child=val.children;//获取所有的孩子节点数组
+                    var length=child.length;//获取数组长度
+                    if(length>1){//判断数组不为空
+                        $.each(child,function (idex, val) {//循环数组
+                            //判断是否拥有该节点资源
+                            if(val.biaoji==1){
+                                $("#main_role_resource_grid").treegrid("select", val.resource_id);//选中
+                            }else {
+                                $("#main_role_resource_grid").treegrid("unselect", val.resource_id);//取消选中
+                            }
+                        })
+                    }
+
+                })
+            }
+        });
+    }
+    //加载资源信息
+    function loadrole_resource(rid) {
+        $.getJSON("/findResourceByRoleID.do?rid="+rid, function (data) {
+            $("#main_role_resource_grid").treegrid("loadData", data);
+            $("#main_role_resource_alert").window("open");
+        });
+    }
+    //分配资源保存
+    function resourcesave() {
+        //获取角色
+        var role = $("#role_grid").datagrid("getSelected");
+        //获取选择的资源
+        var resources = $("#main_role_resource_grid").treegrid("getSelections");
+        //定义数组
+        var role_resources = [];
+        //判断是否有选择
+        if(resources.length>0){
+            //封装
+            for (var i in resources) {
+                var role_resource = {rid: role.rid, resource_id: resources[i].resource_id}
+                role_resources[i] = role_resource;
+            }
+        }else {
+            var role_resource = {rid: role.rid, resource_id: 0};
+            role_resources[0] = role_resource;
+        }
+        //转化成JSON字符串
+        var json = JSON.stringify(role_resources);
+        $.ajax({
+            url: "/insertResourceByRoleID.do",//请求地址
+            method: "post",//方式
+            data: json,//数据
+            contentType: "application/json",//格式
+            success: function (data) {//请求成功返回
+                $("#main_role_resource_alert").window("close");
+                $.messager.alert("系统提示", "分配资源成功！");
+            }
+        });
     }
     //搜索功能
     function searchrole(value, name) {

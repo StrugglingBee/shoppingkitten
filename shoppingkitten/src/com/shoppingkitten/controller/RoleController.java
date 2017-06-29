@@ -98,5 +98,33 @@ public class RoleController {
             }
         }
         return result;
-    };
+    }
+
+    //分配权限
+    @RequestMapping("insertPrivilegeByRoleID.do")
+    @ResponseBody
+    public int insertPrivilegeByRoleID(@RequestBody ArrayList<HashMap<String, Integer>> maps){
+        int result=0;
+        int pid=maps.get(0).get("pid");
+        if(pid>0){
+            result=rs.insertPrivilegeByRoleID(maps);
+        }else {
+            result=rs.delectPrivilegeByRoleID(maps.get(0).get("rid"));
+        }
+        return result;
+    }
+
+    //分配资源
+    @RequestMapping("insertResourceByRoleID.do")
+    @ResponseBody
+    public int insertResourceByRoleID(@RequestBody ArrayList<HashMap<String, Integer>> maps){
+        int result=0;
+        int resource_id=maps.get(0).get("resource_id");
+        if(resource_id>0){
+            result=rs.insertResourceByRoleID(maps);
+        }else {
+            result=rs.delectResourceByRoleID(maps.get(0).get("rid"));
+        }
+        return result;
+    }
 }

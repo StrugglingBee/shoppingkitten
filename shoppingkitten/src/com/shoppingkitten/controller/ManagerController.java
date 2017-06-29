@@ -105,8 +105,11 @@ public class ManagerController {
     @ResponseBody
     public int insertRoleByManagerID(@RequestBody ArrayList<HashMap<String, Integer>> maps){
         int rs=0;
-        if(maps!=null){
+        int rid=maps.get(0).get("rid");
+        if(rid>0){
             rs=ms.insertRoleByManagerID(maps);
+        }else {
+            rs=ms.delectRoleByManagerID(maps.get(0).get("mid"));
         }
         return rs;
     }

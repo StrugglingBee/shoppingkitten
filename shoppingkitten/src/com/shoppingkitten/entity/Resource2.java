@@ -2,13 +2,41 @@ package com.shoppingkitten.entity;
 
 
 import java.io.Serializable;
-import java.lang.String;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Resource2 implements Serializable{
-	public int resource_id;
-	public String text;
-	public String url;
-	public int parent_id;
+	private int resource_id;
+	private String text;
+	private String url;
+	private int parent_id;
+	private boolean checked;
+	private Set<Resource2> children=new HashSet<Resource2>();
+	private int biaoji;
+
+	public int getBiaoji() {
+		return biaoji;
+	}
+
+	public void setBiaoji(int biaoji) {
+		this.biaoji = biaoji;
+	}
+
+	public Set<Resource2> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set<Resource2> children) {
+		this.children = children;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 
 	public int getResource_id() {
 		return resource_id;
