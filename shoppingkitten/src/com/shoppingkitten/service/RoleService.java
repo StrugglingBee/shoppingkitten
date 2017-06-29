@@ -49,4 +49,27 @@ public class RoleService {
     public ArrayList<Role> findRoleByName(String name){
         return rd.findRoleByName(name);
     };
+    //根据角色ID删除对应的权限
+    public int delectPrivilegeByRoleID(int rid){
+        return rd.delectPrivilegeByRoleID(rid);
+    };
+    //分配权限
+    public int insertPrivilegeByRoleID(ArrayList<HashMap<String, Integer>> maps){
+        //删除旧数据
+        int result = rd.delectPrivilegeByRoleID(maps.get(0).get("rid"));
+        //添加新数据
+        return rd.insertPrivilegeByRoleID(maps);
+    };
+
+    //根据角色ID删除对应的资源
+    public int delectResourceByRoleID(int rid){
+        return rd.delectResourceByRoleID(rid);
+    };
+    //分配资源
+    public int insertResourceByRoleID(ArrayList<HashMap<String, Integer>> maps){
+        //删除旧数据
+        int result = rd.delectResourceByRoleID(maps.get(0).get("rid"));
+        //添加新数据
+        return rd.insertResourceByRoleID(maps);
+    };
 }

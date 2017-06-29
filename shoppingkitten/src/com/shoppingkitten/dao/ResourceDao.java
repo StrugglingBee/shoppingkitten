@@ -11,4 +11,8 @@ public interface ResourceDao {
     ArrayList<Resource2> findResourceByprivilege(int pid);
     //根据父节点查找子节点资源
     ArrayList<Resource2> findResourceByPid(int parent_id);
+    //查询所有的资源
+    ArrayList<Resource2> findAllResource();
+    //根据角色ID查找拥有的权限
+    ArrayList<Resource2> findResourceByRoleID(int rid);
 }

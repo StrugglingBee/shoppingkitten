@@ -128,7 +128,6 @@
     }
     //加载角色数据
     function loadmanager_Role() {
-
         $.getJSON("/findAllRole.do", function (data) {
             $("#main_manager_role_grid").datagrid("loadData", data);
         });
@@ -243,11 +242,17 @@
         var roles = $("#main_manager_role_grid").datagrid("getSelections");
         //定义数组
         var manager_roles = [];
-        //封装
-        for (var i in roles) {
-            var manager_role = {mid: manager.mid, rid: roles[i].rid}
-            manager_roles[i] = manager_role;
+        if(roles.length>0){
+            //封装
+            for (var i in roles) {
+                var manager_role = {mid: manager.mid, rid: roles[i].rid}
+                manager_roles[i] = manager_role;
+            }
+        }else {
+            var manager_role = {mid: manager.mid, rid: 0}
+            manager_roles[0] = manager_role;
         }
+
         var json = JSON.stringify(manager_roles);
         $.ajax({
             url: "/insertRoleByManagerID.do",
@@ -256,6 +261,7 @@
             contentType: "application/json",
             success: function (data) {
                 $("#main_manger_role_alert").window("close");
+                $.messager.alert("系统提示", "分配角色成功！");
             }
         });
 

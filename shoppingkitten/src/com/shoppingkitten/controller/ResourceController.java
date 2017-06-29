@@ -14,8 +14,8 @@ import java.util.List;
 public class ResourceController {
     @Resource
     private ResourceService rs;//注入资源
-    //根据权限ID查找根节点资源
 
+    //根据权限ID查找根节点资源
     @RequestMapping("findResourceByPrivilege.do")
     @ResponseBody
     public List<Resource2> findResourceByprivilege(int pid){
@@ -27,5 +27,17 @@ public class ResourceController {
     @ResponseBody
     public ArrayList<Resource2> findResourceByPid(int parent_id){
         return rs.findResourceByPid(parent_id);
+    }
+
+    //根据角色ID查找拥有的权限
+    @RequestMapping("findResourceByRoleID.do")
+    @ResponseBody
+    public List<Resource2> findResourceByRoleID(int rid){
+        //定义结果集
+        List<Resource2> result=null;
+        if(rid>0){
+            result=rs.findResourceByRoleID(rid);
+        }
+        return result;
     }
 }

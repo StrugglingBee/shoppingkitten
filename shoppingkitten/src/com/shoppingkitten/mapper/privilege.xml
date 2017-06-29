@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.PrivilegeDao">
+    <!--查找说有的权限-->
+    <select id="findAllPrivilege" resultType="com.shoppingkitten.entity.Privilege">
+        select * from privilege
+    </select>
+    <!--通过角色ID查找拥有的所有权限-->
+    <select id="findPrivilegeByRoleID" parameterType="int" resultType="com.shoppingkitten.entity.Privilege">
+        SELECT p.* FROM privilege p LEFT JOIN role_privilege rp USING (pid) WHERE rp.rid=#{rid}
+    </select>
+
+</mapper>
